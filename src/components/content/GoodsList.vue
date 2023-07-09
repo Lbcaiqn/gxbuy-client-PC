@@ -75,7 +75,7 @@ function deleteClick(tIndex: number, iIndex: number) {
               <div class="goods-name">{{ i.goods_spu_name }}</div>
               <div class="goods-price">
                 <div>￥{{ i.goods_first_sku_price }}</div>
-                <div>广东 深圳</div>
+                <div>{{ i.shop.shop_address }}</div>
               </div>
               <div class="goods-num">
                 <div>销量 {{ i.goods_sku_total_sales }}</div>

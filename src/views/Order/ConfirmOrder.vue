@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getConfirmOrderDataRequest, createOrderByIdRequest, createOrderByShopcartRequest } from '@/api';
+import {
+  getUserAddressRequest,
+  getConfirmOrderDataRequest,
+  createOrderByIdRequest,
+  createOrderByShopcartRequest,
+} from '@/api';
 import { myMessage } from '@/tools/message';
 
 const route = useRoute();
@@ -12,11 +17,20 @@ const baseURL = ref(
 );
 
 // 初始化数据--------------------------------------------------------------------
+const userAddress = ref<any>([]);
+
 const goods = reactive<any>({
   data: [],
 });
 
 async function getConfirmOrderData() {
+  try {
+    userAddress.value = (await getUserAddressRequest()).data;
+    console.log(userAddress.value);
+  } catch (err: any) {
+    myMessage(err.response?.data?.errorMessage || '请重新登录', 'error');
+  }
+
   const options = route.query.fromGoods
     ? { from: 'goods', goodsSkuId: route.query.fromGoods as string }
     : route.query.fromShopcart
@@ -93,9 +107,9 @@ async function pay() {
   <div id="confirm-order" class="pc-center" v-if="goods.data.length !== 0">
     <div class="title">收货地址</div>
     <div class="address">
-      <div>张三</div>
-      <div>18316332148</div>
-      <div>广东省深圳市南山区</div>
+      <div>{{ userAddress[0]?.name }}</div>
+      <div>{{ userAddress[0]?.phone }}</div>
+      <div>{{ userAddress[0]?.area + userAddress[0]?.detail }}</div>
     </div>
 
     <div class="title">商品信息</div>

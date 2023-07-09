@@ -10,7 +10,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: () => import('@/views/Home/Home.vue'),
     meta: {
-      showFooter: true,
       jwt: false,
     },
   },
@@ -19,7 +18,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'search',
     component: () => import('@/views/Search/Search.vue'),
     meta: {
-      showFooter: true,
       jwt: false,
     },
   },
@@ -28,7 +26,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'goods',
     component: () => import('@/views/Goods/Goods.vue'),
     meta: {
-      showFooter: true,
       jwt: false,
     },
   },
@@ -37,7 +34,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'empty',
     component: () => import('@/views/Empty/Empty.vue'),
     meta: {
-      showFooter: true,
       jwt: false,
     },
   },
@@ -46,7 +42,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'login',
     component: () => import('@/views/Login/Login.vue'),
     meta: {
-      showFooter: true,
       jwt: false,
     },
   },
@@ -55,7 +50,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'user_register',
     component: () => import('@/views/Register/UserRegister.vue'),
     meta: {
-      showFooter: true,
       jwt: false,
     },
   },
@@ -64,7 +58,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'shopcart',
     component: () => import('@/views/Shopcart/Shopcart.vue'),
     meta: {
-      showFooter: true,
       jwt: true,
     },
   },
@@ -73,7 +66,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'user',
     component: () => import('@/views/User/User.vue'),
     meta: {
-      showFooter: true,
       jwt: true,
     },
   },
@@ -82,7 +74,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'order',
     component: () => import('@/views/Order/Order.vue'),
     meta: {
-      showFooter: true,
       jwt: true,
     },
   },
@@ -91,7 +82,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'confirmOrder',
     component: () => import('@/views/Order/ConfirmOrder.vue'),
     meta: {
-      showFooter: true,
       jwt: true,
       canFrom: ['login', 'goods', 'shopcart'],
     },
@@ -101,7 +91,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'pay',
     component: () => import('@/views/Order/Pay.vue'),
     meta: {
-      showFooter: true,
       jwt: true,
       canFrom: ['login', 'confirmOrder', 'order'],
     },
@@ -111,8 +100,17 @@ const routes: Array<RouteRecordRaw> = [
     name: 'shop',
     component: () => import('@/views/Shop/Shop.vue'),
     meta: {
-      showFooter: true,
-      jwt: true,
+      jwt: false,
+    },
+  },
+  {
+    path: '/phone-pay',
+    name: 'phone-pay',
+    component: () => import('@/views/PhonePay/PhonePay.vue'),
+    meta: {
+      hideHeader: true,
+      hideFooter: true,
+      jwt: false,
     },
   },
 ];

@@ -21,7 +21,7 @@ const loginForm = reactive([
   {
     name: 'user_account',
     type: 'text',
-    value: '',
+    value: String(Math.floor(Math.random() * 50000 + 1)).padStart(8, '0'),
     describe: '账号',
     placeholder: '请输入用户名',
     schema: [{ type: 'notEmpty', errorMessage: '用户名不能为空' }],
@@ -29,7 +29,7 @@ const loginForm = reactive([
   {
     name: 'user_password',
     type: 'password',
-    value: '',
+    value: 'qwer1234',
     describe: '密码',
     placeholder: '请输入密码',
     schema: [{ type: 'notEmpty', errorMessage: '密码不能为空' }],

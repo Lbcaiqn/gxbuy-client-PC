@@ -161,7 +161,8 @@ watch(
       imgHeight.value = swiperRef.value.children[0].children[0].children[0].clientHeight;
       imgWidth.value = swiperRef.value.children[0].children[0].children[0].clientWidth;
     }
-  }
+  },
+  { immediate: true }
 );
 
 // 放大镜效果
@@ -251,9 +252,6 @@ function mouseLeave(index: number) {
     <div class="swiper" ref="swiperThumbsRef" v-if="thumbs">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(i, iIndex) in thumbsPropsDefault?.img" :key="iIndex">
-          <!--  图片懒加载和swiper一起使用可能会出现一个bug 即渲染出空白图,下面是解决方案      -->
-          <!-- <img :src="carousel.imageUrl" v-if="index == 0 || index === carouselList.length - 1" /> -->
-          <!-- <img v-lazy.container="carousel.imageUrl" alt="" v-else /> -->
           <img :src="i" :style="{ height: thumbsPropsDefault?.bannerHeight + 'px' }" />
         </div>
       </div>

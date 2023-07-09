@@ -10,10 +10,8 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Counter: typeof import('./src/components/common/Counter.vue')['default']
-    ElB: typeof import('element-plus/es')['ElB']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElDialog: typeof import('element-plus/es')['ElDialog']
-    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     FormValidate: typeof import('./src/components/common/FormValidate.vue')['default']
     GoodsList: typeof import('./src/components/content/GoodsList.vue')['default']

@@ -43,7 +43,20 @@ const follow = throttle(async () => {
           <el-image :src="baseURL + shopInfo.shop_logo" lazy />
         </div>
         <div>{{ shopInfo.shop_name }}</div>
+
+        <div class="shop-level">
+          <div>
+            商品描述：<span style="color: green">{{ shopInfo.describe_level }}</span>
+          </div>
+          <div>
+            店家服务：<span style="color: green">{{ shopInfo.service_level }}</span>
+          </div>
+          <div>
+            物流服务：<span style="color: green">{{ shopInfo.logistics_level }}</span>
+          </div>
+        </div>
       </div>
+
       <div class="shop-options">
         <div v-if="!isFollow" @click="follow"><i class="iconfont icon-tianjia"></i> 关注店铺</div>
         <div v-else @click="follow" @mouseover="followText = '取消关注'" @mouseleave="followText = '已关注'">
@@ -70,7 +83,7 @@ const follow = throttle(async () => {
     .shop-info {
       display: flex;
       align-items: center;
-      width: 300px;
+      width: 800px;
 
       > div:first-child {
         width: 40px;
@@ -88,6 +101,14 @@ const follow = throttle(async () => {
         height: 40px;
         line-height: 38px;
         font-size: 25px;
+      }
+
+      > .shop-level {
+        display: flex;
+
+        > div {
+          margin: 0 20px;
+        }
       }
     }
 

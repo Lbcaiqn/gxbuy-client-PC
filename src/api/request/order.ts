@@ -47,7 +47,7 @@ export function getPayInfoRequest(orderIds: Array<string>) {
 
 export function getPayStateRequest(orderIds: Array<string>) {
   return request({
-    url: '/order/jwt/getPayState',
+    url: '/order/getPayState',
     params: {
       orderIds,
     },
@@ -56,7 +56,7 @@ export function getPayStateRequest(orderIds: Array<string>) {
 
 export function completePayRequest(orderIds: Array<string>) {
   return request({
-    url: '/order/jwt/completePay',
+    url: '/order/completePay',
     method: 'patch',
     data: {
       orderIds,

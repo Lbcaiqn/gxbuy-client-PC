@@ -177,7 +177,13 @@ function submit(data: any) {
           v-if="['text', 'password', 'email'].includes(i.type)"
         >
           <Field v-model="i.value" :name="i.name" :type="i.type" :placeholder="i.placeholder" :validateOnInput="true" />
-          <img class="code" v-if="i.withImg" :src="i.withImg" @click="$emit('codeImgChange')" />
+          <img
+            class="code"
+            style="border: 0.1px solid gray"
+            v-if="i.withImg"
+            :src="i.withImg"
+            @click="$emit('codeImgChange')"
+          />
         </div>
 
         <!-- 单选、多选 -->

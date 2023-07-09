@@ -29,6 +29,12 @@ export function getUserInfoRequest() {
   });
 }
 
+export function getUserAddressRequest() {
+  return request({
+    url: '/user/jwt/getUserAddress',
+  });
+}
+
 export function getUserRecordRequest(options: {
   feature: 'favorite' | 'follow' | 'buyed_shop' | 'browse_history' | 'search_history' | string;
   pageSize: number;

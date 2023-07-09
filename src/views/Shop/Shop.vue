@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { getShopInfoDataRequest, getGoodsByShopRequest } from '@/api';
 import { myMessage } from '@/tools/message';
 import ShopInfo from '@/components/content/ShopInfo.vue';
+import GoodsList from '@/components/content/GoodsList.vue';
 import Pagination from '@/components/common/Pagination.vue';
 
 const route = useRoute();
@@ -45,6 +46,7 @@ async function currentPage(page: number) {
         :isFollow="shopData.shopInfo.isFollow"
         @followChange="shopData.shopInfo.isFollow = !shopData.shopInfo.isFollow"
       />
+
       <GoodsList :goods="[{ time: null, goods: shopData.goods.data }]" />
       <Pagination
         class="pagination"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { getPayInfoRequest, getPayStateRequest, completePayRequest, cancelOrderRequest } from '@/api';
+import { getPayInfoRequest, getPayStateRequest, cancelOrderRequest } from '@/api';
 import { myMessage } from '@/tools/message';
 
 const route = useRoute();
@@ -13,6 +13,7 @@ if (typeof route.query.orderIds === 'string') route.query.orderIds = [route.quer
 const isShowDialog = ref<boolean>(false);
 const isShowCancelRealy = ref<boolean>(false);
 const isPaying = ref<boolean>(false);
+const timer = ref<any>(null);
 
 // 支付 ----------------------------------------------------------------------------
 const payInfo = ref<any>({});
@@ -24,9 +25,15 @@ async function pay() {
     isShowDialog.value = true;
 
     // 获取是否支付成功
-    const timer = setInterval(async () => {
+    timer.value = setInterval(async () => {
       const isComplete = (await getPayStateRequest(route.query.orderIds as Array<string>)).data;
-      if (isComplete) clearInterval(timer);
+      if (isComplete) {
+        isShowDialog.value = false;
+        isShowCancelRealy.value = false;
+        myMessage('支付成功', 'success');
+        router.push('/order' + 'all');
+        clearInterval(timer.value);
+      }
     }, 1000);
   } catch (err: any) {
     myMessage(err.response?.data?.errorMessage || '请重新登录', 'error');
@@ -36,15 +43,22 @@ async function pay() {
 
 // 弹框操作 ---------------------------------------------------------------------------
 async function dialogConfirm() {
-  try {
-    const res = (await completePayRequest(route.query.orderIds as Array<string>)).data;
-    isShowDialog.value = false;
-    isShowCancelRealy.value = false;
-    myMessage(res, 'success');
-    router.push('/order' + 'all');
-  } catch (err: any) {
-    myMessage(err.response?.data?.errorMessage || '请重新登录', 'error');
-  }
+  router.push({
+    path: 'phone-pay',
+    query: {
+      orderIds: route.query.orderIds,
+      price: payInfo.value.totalPrice,
+    },
+  });
+  // try {
+  //   const res = (await completePayRequest(route.query.orderIds as Array<string>)).data;
+  //   isShowDialog.value = false;
+  //   isShowCancelRealy.value = false;
+  //   myMessage(res, 'success');
+  //   router.push('/order' + 'all');
+  // } catch (err: any) {
+  //   myMessage(err.response?.data?.errorMessage || '请重新登录', 'error');
+  // }
 }
 
 function dialogCancel() {
@@ -74,6 +88,10 @@ function CancelRealyContinuePaid() {
   isShowCancelRealy.value = false;
   isShowDialog.value = true;
 }
+
+onBeforeUnmount(() => {
+  clearInterval(timer.value);
+});
 </script>
 
 <template>
@@ -106,9 +124,9 @@ function CancelRealyContinuePaid() {
     :close-on-click-modal="false"
   >
     <div class="qrcode">
-      <img src="@/assets/img/none/none_user.jpg" />
+      <div v-html="payInfo.qrcode"></div>
     </div>
-    <div class="price">￥{{ Number(payInfo.totalPrice).toFixed(2) }}</div>
+    <div class="price">￥{{ Number(payInfo.totalPrice)?.toFixed(2) }}</div>
     <template #header>
       <div class="dialog-header">微信扫一扫支付</div>
     </template>

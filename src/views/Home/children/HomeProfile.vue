@@ -52,7 +52,7 @@ watch(
     <div class="user-option" v-if="!userStore.gxbuy_PC_jwt">
       <div class="user-option-btn" @click="$router.push('/login')">登录</div>
       <div class="user-option-btn" @click="$router.push('/user_register')">注册</div>
-      <div class="user-option-btn" @click="$router.push('/shop_register')">开店</div>
+      <div class="user-option-btn" @click="$router.push('/home')">开店</div>
     </div>
     <div class="user-profile" v-else>
       <div class="buys">

@@ -42,7 +42,7 @@ watch(
   () => props.baseInfo,
   newVal => {
     if (JSON.stringify(newVal) === '{}') return;
-    isSelectedSku.value = newVal.goods_sku[0].sku_sales_attrs;
+    isSelectedSku.value = newVal.goods_sku[0]?.sku_sales_attrs;
   },
   { immediate: true }
 );
@@ -103,25 +103,31 @@ const buy = throttle(() => {
       </div>
       <div class="goods-address">
         <div>配送：</div>
-        <div>广东 深圳</div>
+        <div>{{ baseInfo.shop.shop_address }}</div>
       </div>
 
       <div class="goods-sku">
         <div class="goods-sku-item" v-for="(i, iIndex) in baseInfo.spu_sales_attrs" :key="iIndex">
-          <div class="goods-sku-item-name">{{ i.name }}：</div>
+          <div class="goods-sku-item-name">{{ i?.name }}：</div>
           <div class="goods-sku-item-content">
             <div v-for="(j, jIndex) in i.values" :key="jIndex">
-              <div><img :src="baseInfo.goods_sku[jIndex].goods_sku_img" /></div>
-              <div>{{ j }}</div>
+              <div class="sku-img" v-if="baseInfo.goods_sku[jIndex]?.goods_sku_img">
+                <img :src="baseInfo.goods_sku[jIndex]?.goods_sku_img" />
+              </div>
+
+              <div class="sku-name">{{ j }}</div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="goods-sku-select">
-        <div>已选择：</div>
-        <div>{{ isSelectedSku.reduce((acc: string, attr: any) => (acc += attr.value + ' '), '') }}</div>
-        <div>库存：{{ baseInfo.goods_sku[0].goods_sku_stock }} 有货</div>
+        <div v-if="!isSelectedSku">未选择分类</div>
+        <div v-else>
+          <div>已选择：</div>
+          <div>{{ isSelectedSku.reduce((acc: string, attr: any) => (acc += attr.value + ' '), '') }}</div>
+          <div>剩余：{{ baseInfo.goods_sku[0].goods_sku_stock }}</div>
+        </div>
       </div>
 
       <div class="goods-count">
@@ -216,7 +222,7 @@ const buy = throttle(() => {
             border: 2px solid @main-color;
             border-radius: 5px;
 
-            > div:first-child {
+            > .sku-img {
               margin: 0 15px 0 -12px;
               width: 30px;
               height: 30px;
@@ -233,19 +239,21 @@ const buy = throttle(() => {
     }
 
     .goods-sku-select {
-      display: flex;
-      margin-top: 30px;
+      > div {
+        display: flex;
+        margin-top: 30px;
 
-      > div:first-child {
-        width: 12%;
-      }
+        > div:first-child {
+          width: 12%;
+        }
 
-      > div:nth-child(2) {
-        width: 48%;
-      }
+        > div:nth-child(2) {
+          width: 48%;
+        }
 
-      > div:nth-child(3) {
-        width: 40%;
+        > div:nth-child(3) {
+          width: 40%;
+        }
       }
     }
 

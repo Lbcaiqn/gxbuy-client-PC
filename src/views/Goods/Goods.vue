@@ -58,7 +58,9 @@ async function currentPage(page: number) {
       />
       <div class="goods-base-info">
         <div class="goods-banner">
-          <GoodsBanner :img="goods.detail.goods_img.filter((i: any) => i.goods_img_type === 'banner')" />
+          <GoodsBanner
+            :img="goods.detail.goods_img.find((i: any) => i.goods_img_type === 'banner')?.goods_img_list || []"
+          />
         </div>
         <div class="goods-info">
           <GoodsBaseInfo
@@ -70,7 +72,7 @@ async function currentPage(page: number) {
       </div>
       <GoodsDetail
         :parameter="goods.parameter"
-        :img="goods.detail.goods_img.filter((i: any) => i.goods_img_type === 'detail')"
+        :img="goods.detail.goods_img.find((i: any) => i.goods_img_type === 'detail')?.goods_img_list || []"
         :goodsByShop="goods.goodsByShop?.data"
         :comment="goods.comment"
         @currentPage="currentPage"

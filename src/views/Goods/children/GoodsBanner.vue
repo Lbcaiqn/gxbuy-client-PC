@@ -14,7 +14,7 @@ withDefaults(
 <template>
   <div id="goods-banner" v-if="img.length !== 0">
     <MySwiper
-      :img="img.map(i => i.goods_img_url)"
+      :img="img.map(i => i.url)"
       :delay="3000"
       :banner-height="420"
       :loop="true"
@@ -23,7 +23,7 @@ withDefaults(
       :useZoom="true"
       :thumbs="true"
       :thumbsProps="{
-        img: img.map(i => i.goods_img_url),
+        img: img.map(i => i.url),
         bannerHeight: 80,
         loop: false,
         delay: 3000,

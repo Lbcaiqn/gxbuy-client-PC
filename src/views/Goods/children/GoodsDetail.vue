@@ -76,10 +76,10 @@ function currentPage(page: number) {
           <el-image
             style="display: block; width: 100%"
             v-for="(i, iIndex) in img"
-            :src="i.goods_img_url"
+            :src="i.url"
             :key="i._id"
             :zoom-rate="1.2"
-            :preview-src-list="img.map((item:any)=> item.goods_img_url)"
+            :preview-src-list="img.map((item:any)=> item.url)"
             :initial-index="iIndex"
             hide-on-click-modal
             lazy
@@ -104,7 +104,26 @@ function currentPage(page: number) {
               </div>
             </div>
           </div>
-          <div class="comment-area">用户未留下评价</div>
+          <div class="comment-area">
+            <p>{{ i.goods_comment[0].comment }}</p>
+            <div class="comment-img">
+              <div class="comment-img-item" v-for="(img, imgIndex) in i.goods_comment[0].img_url" :key="imgIndex">
+                <el-image
+                  style="display: block; width: 100%"
+                  :src="img"
+                  :zoom-rate="1.2"
+                  :preview-src-list="i.goods_comment[0].img_url"
+                  :initial-index="imgIndex"
+                  hide-on-click-modal
+                  lazy
+                >
+                  <template #error>
+                    <span></span>
+                  </template>
+                </el-image>
+              </div>
+            </div>
+          </div>
         </div>
         <Pagination
           class="pagination"
@@ -226,6 +245,25 @@ function currentPage(page: number) {
           margin-top: 20px;
           padding: 0 10px;
           font-size: 18px;
+
+          .comment-img {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+
+            .comment-img-item {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              overflow: hidden;
+              margin-right: 10px;
+              margin-bottom: 10px;
+              width: 185px;
+              height: 185px;
+              border: 1px solid @main-color;
+              border-radius: 5px;
+            }
+          }
         }
       }
     }

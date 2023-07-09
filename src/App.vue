@@ -4,7 +4,7 @@ import PCFooter from './components/content/PCFooter.vue';
 </script>
 
 <template>
-  <PCHeader />
+  <PCHeader v-show="!$route.meta.hideHeader" />
 
   <router-view v-slot:default="{ Component }">
     <keep-alive :include="['home']">
@@ -12,7 +12,7 @@ import PCFooter from './components/content/PCFooter.vue';
     </keep-alive>
   </router-view>
 
-  <PCFooter />
+  <PCFooter v-show="!$route.meta.hideFooter" />
 </template>
 
 <style lang="less"></style>

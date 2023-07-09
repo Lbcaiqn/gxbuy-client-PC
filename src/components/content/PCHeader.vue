@@ -102,7 +102,7 @@ async function deleteSearchHistoryAll() {
           <span>欢迎来到聚享购！</span>
           <span @click="$router.push('/login')">登录</span>
           <span @click="$router.push('/user_register')">注册</span>
-          <span @click="$router.push('/shop_register')">开店</span>
+          <span @click="$router.push('/home')">开店</span>
         </div>
         <div class="left" v-else>
           <span>欢迎来到聚享购！ {{ userStore.userInfo.user_name }}</span>
